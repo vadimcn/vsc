@@ -25,7 +25,7 @@ on:
 run-name: Run on ${{ inputs.os_image }}
 
 jobs:
-  build:
+  run:
     name: Run on ${{ inputs.os_image }}
     runs-on: ${{ inputs.os_image }}
     permissions:

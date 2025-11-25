@@ -1,0 +1,14 @@
+{
+  "name": "vscode-test-electron-runner",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "ncc build scripts/run-vscode.js -o dist",
+    "run:vscode": "node scripts/run-vscode.js",
+    "test": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.3",
+    "@vscode/test-electron": "^2.4.0"
+  }
+}

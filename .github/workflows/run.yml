@@ -1,0 +1,45 @@
+name: Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      os_image:
+        type: choice
+        description: Image
+        default: ubuntu-latest
+        options:
+        - ubuntu-latest
+        - ubuntu-24.04
+        - ubuntu-22.04
+        - macos-latest
+        - macos-26
+        - macos-15
+        - macos-15-intel
+        - macos-14
+        - macos-13
+        - windows-latest
+        - windows-2025
+        - windows-2022
+        - windows-2019
+
+run-name: Run on ${{ inputs.os_image }}
+
+jobs:
+  build:
+    name: Run on ${{ inputs.os_image }}
+    runs-on: ${{ inputs.os_image }}
+    permissions:
+      actions: read
+      contents: read
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
+
+    - name: Run VS Code
+      run: node dist/index.js

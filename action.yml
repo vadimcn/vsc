@@ -1,0 +1,7 @@
+name: VS Code
+runs:
+  using: node20
+  main: vsc/dist/index.js
+branding:
+  icon: terminal
+  color: blue

@@ -40,6 +40,8 @@ jobs:
       with:
         node-version: 20
         cache: npm
+        cache-dependency-path: vsc/package-lock.json
 
     - name: Run VS Code
+      working-directory: vsc
       run: node dist/index.js

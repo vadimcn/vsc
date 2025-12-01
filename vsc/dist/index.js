@@ -6085,6 +6085,15 @@ function resolveCliPlatform() {
     }
 }
 
+function runCliCommand(cliPath, args) {
+    console.log(`Running ${cliPath} ${args.join(' ')}`);
+    const result = spawnSync(cliPath, args, { stdio: 'inherit' });
+    if (result.status !== 0) {
+        console.error(`Exited with non-zero status ${result.status}`);
+    }
+    return result.status;
+}
+
 async function main() {
     const platform = resolveCliPlatform();
     console.log(`Downloading VS Code CLI for platform: ${platform}`);
@@ -6092,21 +6101,14 @@ async function main() {
     console.log(`VS Code CLI extracted to: ${vscodePath}`);
 
     const [cliPath, ...cliDefaults] = resolveCliArgsFromVSCodeExecutablePath(vscodePath, { platform });
-    const args = [...cliDefaults, 'tunnel', '--accept-server-license-terms'];
 
-    console.log(`Launching VS Code CLI with args: ${args.join(' ')}`);
-    const result = spawnSync(cliPath, args, { stdio: 'inherit' });
-    if (result.status !== 0) {
-        console.error(`VS Code CLI exited with non-zero status: ${result.status}`);
-    }
+    runCliCommand(cliPath, [...cliDefaults, 'tunnel', '--accept-server-license-terms']);
 }
 
 main().catch(err => {
     console.error(err);
     process.exit(1);
 });
-
-
 
 module.exports = __webpack_exports__;
 /******/ })()
